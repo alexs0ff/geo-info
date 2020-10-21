@@ -1,0 +1,32 @@
+<h1>Geo info</h1>
+<form [formGroup]="parametersForm" (ngSubmit)="submitZip()" novalidate>
+  <div class="form-group">
+    <label>
+      Zip Code:
+      <input class="form-control" type="text" formControlName="zipCode" placeholder="Enter zip code: 123001,RU">
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!parametersForm.valid">Take</button>
+
+</form>
+
+<div class="alert alert-danger" *ngIf="errorMessage$ | async as msg">
+  {{msg}}
+</div>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="info$ | async as info">
+  <thead>
+    <tr>
+      <th>City</th>
+      <th>Temp. (C)</th>
+      <th>Time zone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ info.city }}</td>
+      <td>{{ info.currentTemperatureCelsius }}</td>
+      <td>{{ info.timeZone }}</td>
+    </tr>
+  </tbody>
+</table>

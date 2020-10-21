@@ -29,6 +29,7 @@ namespace GeoInfoApp.GoogleTimeZone
 
 		public async Task<TimeZoneInfo> GetTimeZoneInfo(float lat, float lng, DateTimeOffset timestamp, CancellationToken cancellationToken = default)
 		{
+			//TODO: we can provide some cache
 			var apiQuery = MakeUrl(lat, lng, timestamp);
 
 			var response = await _httpClient.GetAsync(apiQuery, cancellationToken);

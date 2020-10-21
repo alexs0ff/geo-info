@@ -26,8 +26,14 @@ namespace GeoInfoApp.GeoInfo
 		[Route("api/geoInfo/{zipCode}")]
 		[ProducesResponseType(typeof(GeoInfoDto),StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<IActionResult> GetGeoInfo([FromRoute] string zipCode, CancellationToken cancellationToken)
 		{
+			if (!ZipCodeValidator.IsValid(zipCode))
+			{
+				return BadRequest();
+			}
+
 			try
 			{
 				var geoInfo = await _geoInfoComposer.ComposeByZip(zipCode, cancellationToken);
