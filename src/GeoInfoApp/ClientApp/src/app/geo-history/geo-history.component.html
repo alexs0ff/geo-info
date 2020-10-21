@@ -1,0 +1,21 @@
+<h1>Geo info requests history </h1>
+<button (click)="updateHistory()" class="btn btn-primary">Take history</button>
+
+<div class="alert alert-danger" *ngIf="errorMessage$ | async as msg">
+  {{msg}}
+</div>
+
+<div class="row">
+  <div class="col-sm-6" *ngFor="let item of historyItems$ | async">
+      <div class="card bg-light">
+        <div class="card-body">
+          <h5 class="card-title">{{item.city}} at UTC {{item.dateTimeUtc | date:'short' }}</h5>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-success">Temp: {{item.currentTemperatureCelsius}}</li>
+            <li class="list-group-item list-group-item-info">TimeZone: {{item.timeZone}}</li>
+          </ul>
+          <button class="retry-btn btn btn-primary" [routerLink]="['/geo-info']">Retry for now</button>
+        </div>
+      </div>
+    </div>
+</div>
