@@ -9,6 +9,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1.102 AS build
 WORKDIR /src
 COPY ./GeoInfoApp.sln ./
 COPY ./GeoInfoApp/. ./GeoInfoApp/
+COPY ./GeoInfoApp.Tests/. ./GeoInfoApp.Tests/
 
 RUN dotnet restore
 
