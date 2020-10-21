@@ -19,8 +19,11 @@ RUN dotnet build ./GeoInfoApp/GeoInfoApp.csproj -o /app/build
 
 ####
 # Deploy database
-
-
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="/root/.dotnet/tools:${PATH}"
+RUN dotnet add ./GeoInfoApp/GeoInfoApp.csproj package Microsoft.EntityFrameworkCore.Design
+RUN dotnet ef database update -v -c GeoAppDbContext -p GeoInfoApp/GeoInfoApp.csproj
+RUN cp ./GeoInfoApp/data.db /app/build/
 ###
 
 #2.2 BUILD angular app

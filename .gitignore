@@ -332,3 +332,4 @@ ASALocalRun/
 *.log
 src/e2e/output/
 src/e2e/reports/
+/src/GeoInfoApp/data.db

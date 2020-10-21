@@ -25,7 +25,7 @@ export class GeoInfoPageComponent implements OnInit, OnDestroy {
   }
 
   public submitZip() {
-
+    this.errorMessage$.next(null);
     let zip = this.parametersForm.get('zipCode').value;
 
     this.info$ = this.http.get<GeoInfo>(this.baseUrl + 'api/geoInfo/' + zip)

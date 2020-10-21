@@ -1,3 +1,4 @@
+using GeoInfoApp.Data;
 using GeoInfoApp.OpenWeatherMap;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using GeoInfoApp.GeoInfo;
 using GeoInfoApp.GoogleTimeZone;
+using GeoInfoApp.History;
+using Microsoft.EntityFrameworkCore;
 
 namespace GeoInfoApp
 {
@@ -24,7 +27,11 @@ namespace GeoInfoApp
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews();
-			// In production, the Angular files will be served from this directory
+
+			services.AddDbContextPool<GeoAppDbContext>(options =>
+				options.UseSqlite(
+					Configuration.GetConnectionString("DefaultConnection")));
+
 			services.AddSpaStaticFiles(configuration =>
 			{
 				configuration.RootPath = "ClientApp/dist";
@@ -37,6 +44,7 @@ namespace GeoInfoApp
 				.AddGoogleTimeZoneOptions(Configuration);
 
 			services.AddGeoInfoServices();
+			services.AddHistoryServices();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

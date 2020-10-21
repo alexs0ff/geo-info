@@ -12,3 +12,17 @@ docker run -p "9215:80" --env "GoogleTimeZone:ApiKey={PLACE GOOGLE API KEY}" --e
 
 3. open browser
 http://localhost:9215
+
+
+
+if you want lanch the application via MS VS please run following commands:
+1. create empty SQLite database file (at solution file level)
+```console
+ dotnet ef database update -c GeoAppDbContext -p GeoInfoApp/GeoInfoApp.csproj
+```
+
+2. build angular application (at ClientApp folder)
+```console
+npm install
+ng build
+```
