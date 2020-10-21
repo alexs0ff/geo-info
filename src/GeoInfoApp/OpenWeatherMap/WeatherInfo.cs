@@ -7,11 +7,10 @@ namespace GeoInfoApp.OpenWeatherMap
 {
 	public class WeatherInfo
 	{
-		/// <summary>
-		/// The city name.
-		/// </summary>
 		public string Name { get; set; }
 
 		public WeatherInfoMain Main { get; set; }
+
+		public WeatherInfoCoord Coord { get; set; }
 	}
 }

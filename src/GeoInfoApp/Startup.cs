@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using GeoInfoApp.GeoInfo;
+using GeoInfoApp.GoogleTimeZone;
 
 namespace GeoInfoApp
 {
@@ -31,6 +32,9 @@ namespace GeoInfoApp
 
 			services.AddOpenWeatherMapClient()
 				.AddOpenWeatherMapOptions(Configuration);
+
+			services.AddGoogleTimeZoneClient()
+				.AddGoogleTimeZoneOptions(Configuration);
 
 			services.AddGeoInfoServices();
 		}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,11 @@ namespace GeoInfoApp.GeoInfo
 		[Route("api/geoInfo/{zipCode}")]
 		[ProducesResponseType(typeof(GeoInfoDto),StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-		public async Task<IActionResult> GetGeoInfo([FromRoute] string zipCode)
+		public async Task<IActionResult> GetGeoInfo([FromRoute] string zipCode, CancellationToken cancellationToken)
 		{
 			try
 			{
-				var geoInfo = await _geoInfoComposer.ComposeByZip(zipCode);
+				var geoInfo = await _geoInfoComposer.ComposeByZip(zipCode, cancellationToken);
 
 				return Ok(geoInfo);
 			}

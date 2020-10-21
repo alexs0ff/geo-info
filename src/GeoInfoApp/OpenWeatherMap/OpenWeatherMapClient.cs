@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 
@@ -23,17 +24,17 @@ namespace GeoInfoApp.OpenWeatherMap
 			_httpClient.BaseAddress = baseAddress;
 		}
 
-		public async Task<WeatherInfo> GetWeatherInfoByZip(string zip)
+		public async Task<WeatherInfo> GetWeatherInfoByZip(string zip, CancellationToken cancellationToken = default)
 		{
-			var response = await _httpClient.GetAsync(MakeZipUrl(zip));
+			var response = await _httpClient.GetAsync(MakeZipUrl(zip), cancellationToken);
 
 			response.EnsureSuccessStatusCode();
 
 			await using var responseStream = await response.Content.ReadAsStreamAsync();
-			var result =  await JsonSerializer.DeserializeAsync<WeatherInfo>(responseStream,new JsonSerializerOptions
+			var result = await JsonSerializer.DeserializeAsync<WeatherInfo>(responseStream, new JsonSerializerOptions
 			{
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-			});
+			}, cancellationToken);
 
 			return result;
 		}
